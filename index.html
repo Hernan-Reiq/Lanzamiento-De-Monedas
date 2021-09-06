@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Lanzamiento de monedas</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="text-center my-3">Lanzamiento de monedas</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Probabilidad de crear esta combinación</h2>
+            <div class="row bg-info my-2">
+                <div class="col-md-1 px-0 probabilidad">50%</div>
+                <div class="col-md-1 px-0 probabilidad">25%</div>
+                <div class="col-md-1 px-0 probabilidad">12.5%</div>
+                <div class="col-md-1 px-0 probabilidad">6.25%</div>
+                <div class="col-md-1 px-0 probabilidad">3.12%</div>
+                <div class="col-md-1 px-0 probabilidad">1.56%</div>
+                <div class="col-md-1 px-0 probabilidad">0.78%</div>
+                <div class="col-md-1 px-0 probabilidad">0.39%</div>
+                <div class="col-md-1 px-0 probabilidad">0.19%</div>
+                <div class="col-md-1 px-0 probabilidad">0.09%</div>
+                <div class="col-md-1 px-0 probabilidad">0.04%</div>
+                <div class="col-md-1 px-0 probabilidad">0.02%</div>
+            </div>
+        </div>
+        <div class="container">
+            <h2 class="h3">Probabilidad consumida en esta combinación</h2>
+        </div>
+        <div class="container">
+            <div class="row my-2 contenedor-monedas" id="contenedor-columnas">
+                <!-- LAS MONEDAS SE AGREGAN CON JAVASCRIPT AL HACER CLICK CON LOS BOTONES -->
+            </div>
+        </div>
+        <div class="container">
+            <h2 class="h3">Probabilidad de que el último color cambie <span class="badge badge-pill badge-primary" id="siguiente-movimiento">50%</span></h2>
+        </div>
+        <div class="container">
+            <div class="controles my-3 row">
+                <div class="col-md-4">
+                    <button onclick="agregarMoneda('rojo');" class="w-100 btn btn-danger">Agregar rojo</button>
+                </div>
+                <div class="col-md-4">
+                    <button onclick="agregarMoneda('verde');" class="w-100 btn btn-success">Agregar verde</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="w-100 btn btn-secondary" id="reiniciar-monedas">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5" id="alertador">
+            <!-- LAS ALERTAS SON GENERADAS CON JAVASCRIPT -->
+        </div>
+        <div class="container mt-5">
+            <h3>Estrategia de inversión con meta de $500 USD</h3>
+            <table class="table table-hover table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Capital requerido</th>
+                    <th scope="col">Inversión <span class="badge badge-pill badge-primary"><button onclick="actualizarInversion(-1);">-</button><span id="porcentaje-inversion">1</span>%<button onclick="actualizarInversion(1);">+</button></span></th>
+                    <th scope="col">Cantidad de aciertos</th>
+                    <th scope="col">Ganancias <span class="badge badge-pill badge-primary"><button onclick="aumentarGanancias(-1);">-</button><span id="porcentaje-ganancia">70</span>%<button onclick="aumentarGanancias(1);">+</button></span></th>
+                </tr>
+                </thead>
+                <tbody id="tabla-estrategia">
+                    <!-- LAS FILAS DE ESTA TABLA SE GENERAN CON JAVASCRIPT -->
+                </tbody>
+              </table>
+        </div>
+        <div class="container mt-5">
+            <h3>Martingala: invertir más del doble inicial para recuperar lo perdido</h3>
+            <table class="table table-hover table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Inversión</th>
+                    <th scope="col">Ganancias normales</th>
+                    <th scope="col">Ganancias aplicando martingala</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>$1 USD</td>
+                    <td>$<span id="gn-1">0.7</span> USD</td>
+                    <td><span class="badge badged-pill badge-success">$<span id="gm-1">0</span> USD</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>$3 USD</td>
+                    <td>$<span id="gn-2">2.1</span> USD</td>
+                    <td><span class="badge badged-pill badge-success">$<span id="gm-2">1.1</span> USD</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>$6 USD</td>
+                    <td>$<span id="gn-3">4.9</span> USD</td>
+                    <td><span class="badge badged-pill badge-success">$<span id="gm-3">0.9</span> USD</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>$15 USD</td>
+                    <td>$<span id="gn-4">11.2</span> USD</td>
+                    <td><span class="badge badged-pill badge-success">$<span id="gm-4">0.2</span> USD</span></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>$38 USD</td>
+                    <td>$<span id="gn-5">11.2</span> USD</td>
+                    <td><span class="badge badged-pill badge-success">$<span id="gm-5">0.2</span> USD</span></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div class="container bg-warning mb-5 horario">
+            <h2 class="text-center my-3 mt-5 bg-dark text-white rounded">Horario actual VS. horario en CET</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Hora actual: <span id="hora">00</span>:<span id="minutos">00</span>:<span id="segundos">00</span></h2>
+                </div>
+                <div class="col-md-6">
+                    <h2>Hora en CET: <span id="hora-cet">00</span>:<span id="minutos-cet">00</span>:<span id="segundos-cet">00</span></h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Día actual: <span id="dia"></span></h2>
+                </div>
+                <div class="col-md-6">
+                    <h2>Día en CET: <span id="dia-cet"></span></h2>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="mb-0 text-white text-center">Desarrollo y diseño web por: <a href="https://bit.ly/hernanreiq" target="_blank" class="text-warning">Hernan.Reiq</a></p>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
